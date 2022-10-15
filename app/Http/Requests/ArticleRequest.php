@@ -27,7 +27,6 @@ class ArticleRequest extends FormRequest
             'title' => 'required|max:25',
             'content' => 'required|max:255',
             'creator_id' => 'required',
-            'image' => 'required',
         ];
     }
 
@@ -39,7 +38,6 @@ class ArticleRequest extends FormRequest
             'content.required' => 'Content is reqired',
             'content.max' => 'Content max :max character',
             'creator_id.required' => 'Creator is reqired',
-            'image.required' => 'Image is reqired',
         ];
     }
 }

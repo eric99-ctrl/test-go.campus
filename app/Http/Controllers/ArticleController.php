@@ -43,11 +43,13 @@ class ArticleController extends Controller
     {
         $validated = $request->validated();
 
-        $extension = $request->file('image')->getClientOriginalExtension();
-        $fileName = time().'.'.$extension;
-        $request->file('image')->storeAs('images', $fileName);
+        if($request->file('image')){
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileName = time().'.'.$extension;
+            $request->file('image')->storeAs('images', $fileName);
+            $validated['image'] =  $fileName;
+        }
 
-        $validated['image'] =  $fileName;
         $validated['created_by'] = auth()->user()->id;
 
         $process = DB::transaction( function() use($validated){
@@ -76,11 +78,14 @@ class ArticleController extends Controller
         $validated = $request->validated();
         Storage::delete('images/'. $request->oldimage);
 
-        $extension = $request->file('image')->getClientOriginalExtension();
-        $fileName = time().'.'.$extension;
-        $request->file('image')->storeAs('images', $fileName);
+        if($request->file('image')){
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileName = time().'.'.$extension;
+            $request->file('image')->storeAs('images', $fileName);
+            $validated['image'] =  $fileName;
+        }
 
-        $validated['image'] =  $fileName;
+
         $validated['updated_by'] = auth()->user()->id;
 
         $process = DB::transaction( function() use($validated, $id){

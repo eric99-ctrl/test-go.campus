@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 25);
             $table->string('content', 255);
-            $table->string('image', 50);
+            $table->string('image', 50)->nullable();
             $table->unsignedBigInteger('creator_id')->required();
             $table->foreign('creator_id')->references('id')->on('creators')->onDelete('cascade');
             $table->unsignedBigInteger('created_by')->nullable();
